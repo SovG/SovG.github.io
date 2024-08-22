@@ -1,0 +1,141 @@
+<html>
+<head>
+<title>11ty, A guide.</title>
+<link rel="stylesheet" href="/style/layout.css">
+<link rel="stylesheet" href="/style/app.css">
+<link rel="stylesheet" href="/style/navbar.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-main-link">
+                <a href="/"><h3>~/Home</h3></a>
+            </div>
+            <div class="nav-sub-links">
+                <a href="/archives/" class="nav-links"><h4>~/Archives</h4></a>
+                <a href="/about/" class="nav-links"><h4>~/About</h4></a>
+            </div>
+        </nav>
+        <main>
+            <h1><center>11ty, A guide.</center></h1>
+<h3>Static Site Generation? Wha?</h3>
+<br/>   
+<p>To me static websites denote static HTML files, circa 90's internet. We've moved a ways forward since then, with the evolution from <code>Server Side Rendered</code> websites, to <code>Dynamic</code> web apps, and back to <code>Server Side Rendered</code> web apps. And thats not talking about the <code>CMSs</code> of the world. Something common to these approaches, is the underlying need of having a web server to populate information as needed by the application.
+<br/><br/></p>
+<p>The <a href="https://jamstack.org/">Jamstack</a> pattern attempts to be a hybridisation of these approaches, where you can build layouts and a componentised web application that renders into static HTML files which can be hosted anywhere. <a href="https://www.11ty.dev/">11ty</a> is an implementation that follows the Jamstack principles and is built on top of Node.
+<br/><br/></p>
+<h3>Why 11ty?</h3>
+<br/>
+<p>If you follow the <a href="https://pages.github.com/">Github Pages</a> guide for hosting on their platform, they direct you to use a Jamstack platform called <a href="https://jekyllrb.com/">Jekyll</a>. Jekyll itself is completely functional as a tool, but it does require a functioning Ruby installation. 11ty on the other hand is built upon Node, which has a significantly higher adoption rate across engineers.
+<br/><br/></p>
+<p>Similar to Jekyll, you can host a static site built by 11ty in Github Pages, or any other way you would host a HTML website.
+<br/><br/></p>
+<h3>How do I get started?</h3>
+<br/>
+<p>Before cracking into it, you'll need to have access to a computer which has NodeJS installed onto it. 11ty requires at least Node@14, but you should be able to proceed with a more up to date version of Node.
+<br/><br/></p>
+<pre><code class="language-shell">$ mkdir &lt;11ty-directory&gt;
+$ cd &lt;11ty-directory&gt;
+$ npm-init -y
+$ npm install @11ty/eleventy
+</code></pre>
+<br/>
+The commands above create a directory to store the 11ty application, creates an NPM/Node project in said directory, and installs 11ty to it. This allows us to interface with the 11ty via the npm run-scripts, which we will setup below.
+<br/><br/>
+<pre><code class="language-shell">&quot;scripts&quot;: {
+    &quot;build&quot;: &quot;eleventy&quot;,
+    &quot;serve&quot;: &quot;eleventy --serve&quot;
+}
+</code></pre>
+<br/>
+<p>Add the following to your <code>package.json</code> file. These commands can be triggered by writing <code>npm run build</code> and <code>npm run serve</code>, and will compile your 11ty site into HTML and serve the 11ty site on <a href="http://localhost:8080">http://localhost:8080</a> respectively.
+<br/><br/></p>
+<h3>Harnessing your inner Content Creator!</h3>
+<br/>
+<p>A website is literally and figuratively nothing without content. We'll start by following the default pattern of using an <code>index.html</code> to start as our root. Copy the following code snippet into your <code>index.html</code> file to render out <em>Hello World!</em>.
+<br/><br/></p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;title&gt;My WebPage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Hello World!&lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+<br/>
+<p>If you run <code>npm run serve</code> in your terminal, you should be able to see the HTML being rendered out in your browser by going to <a href="https://localhost:8080">localhost:8080</a>.
+<br/>
+Having one page is fine, but having two pages really shows off your wealth. Create a second page called <code>secret.html</code>. Inside, add the following HTML code
+<br/><br/></p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;title&gt;My Secret Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Shhh! Secrets Ahoy&lt;/p&gt;
+    &lt;a href=&quot;/&quot;&gt;Home&lt;a&gt;
+&lt;/body&gt;
+</code></pre>
+<br/>
+<p>And add the following snippet to your <code>index.html</code> to allow navigation to your new page.
+<br/><br/></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;p&gt;Hello World!&lt;/p&gt;
+    &lt;a href=&quot;secret.html&quot;&gt;👀&lt;/a&gt;
+&lt;/body&gt;
+</code></pre>
+<br/>
+<p>Voila, we now have a functioning website, with multiple pages to really show off our sophistication.
+<br/><br/></p>
+<h3>Template, Template, Template.</h3>
+<br/>
+<p>We may have a functioning website, but we haven't really done anything to differentiate 11ty from plain old HTML. One of the benefits of 11ty is the ability to use layouts for abstracting away boilerplate code, and applying a stylistic theme across pages. 11ty supports a number of <a href="https://www.11ty.dev/docs/languages/">template languages</a>, but we'll focus on using <a href="https://liquidjs.com/">Liquid</a>.
+<br/><br/>
+With Liquid, we are firstly going to create a template for our pages. We are going to abstract away the <code>&lt;head&gt;</code> component and place that inside of the template. Create a directory called <code>_includes</code> and create a file called <code>main.liquid</code> inside of there. Add the following code to <code>main.liquid</code>.
+<br/><br/></p>
+<pre><code class="language-html">---
+title: Default title
+---
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;{{ title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {{ content }}
+    &lt;footer&gt;
+        &lt;p&gt;YOUR WEBSITE FOOTER&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<br/>
+<p>We've now created a template which takes and renders some arbitrary content, and adds a footer to each page using the template. Cool.
+You would have noticed a couple of special non-html functions being used. These are ways of accessing 11ty variables inside of the template.
+<code>title</code> will be set as <em>Default title</em> unless it's set by the page using the template. Likewise <code>content</code> injects all of the content in the page that is utilising the template.
+<br/><br/></p>
+<p>The following code snippet should be added to <code>index.html</code>. We will use the created layout to remove boilerplate from the <code>&lt;Head&gt;</code> and add the footer to it automatically.
+<br/><br/></p>
+<pre><code class="language-html">---
+title: Main Page
+layout: main
+---
+&lt;body&gt;
+    &lt;p&gt;Hello World!&lt;/p&gt;
+&lt;/body&gt;
+</code></pre>
+<br/>
+<p>You should notice that our home page now renders with the the title of <code>Main Page</code> (see the name in the current tab in your browser), and it has a footer inserted now.
+<br/><br/></p>
+<h3>Hosting your site</h3>
+<br/>
+<p><code>TBC</code></p>
+
+        </main>
+        <footer>
+            <p>Sovereign ~ 2024</p>
+        </footer>
+    </div>
+
+</body>
+</html>

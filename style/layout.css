@@ -1,0 +1,37 @@
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 0.25fr 2fr 0.25fr;
+    grid-template-rows: 0.1fr 4fr 0.1fr;
+    grid-template-areas:
+    "nav nav nav"
+    ". main ."
+    "footer footer footer";
+}
+
+nav {
+    grid-area: nav;
+    min-height: 50px;
+    background-color: #dce0e8;
+}
+
+@media screen and (max-width: 480px) {
+    nav {
+        min-height: 40px;
+    }
+}
+
+main {
+    grid-area: main;
+    padding: 1em;
+    max-width: 1368px;
+}
+
+footer {
+    grid-area: footer;
+    min-height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dce0e8;
+}

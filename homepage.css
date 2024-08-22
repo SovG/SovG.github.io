@@ -1,0 +1,52 @@
+.homepage-grid {
+    display: grid;
+    min-height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.25fr 0.25fr;
+    grid-template-areas:
+    "context context"
+    "pinned latest";
+}
+
+
+.blog-context {
+    grid-area: context;
+    padding-bottom: 10px;
+}
+
+.blog-context img {
+    width: 50%;
+    float: right;
+    padding: 1%;
+    max-height: 400px;
+    max-width: fit-content;
+}
+
+@media screen and (max-width: 480px) {
+    .homepage-grid {
+        display: grid;
+        min-height: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 0.5fr 0.5fr;
+        grid-template-areas:
+        "context"
+        "pinned"
+        "latest";
+    }
+
+    .blog-context img {
+        width: 100%;
+        justify-self: center;
+        float: none;
+    }
+
+}
+
+
+.pinned-blogs {
+    grid-area: pinned;
+}
+
+.latest-blogs {
+    grid-area: latest;
+}
