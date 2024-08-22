@@ -4,8 +4,8 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.25fr 0.25fr;
     grid-template-areas:
-    "context context"
-    "pinned latest";
+        "context context"
+        "pinned latest";
 }
 
 
@@ -22,16 +22,16 @@
     max-width: fit-content;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
     .homepage-grid {
         display: grid;
         min-height: 100%;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 0.5fr 0.5fr;
         grid-template-areas:
-        "context"
-        "pinned"
-        "latest";
+            "context"
+            "pinned"
+            "latest";
     }
 
     .blog-context img {

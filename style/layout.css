@@ -4,9 +4,9 @@
     grid-template-columns: 0.25fr 2fr 0.25fr;
     grid-template-rows: 0.1fr 4fr 0.1fr;
     grid-template-areas:
-    "nav nav nav"
-    ". main ."
-    "footer footer footer";
+        "nav nav nav"
+        ". main ."
+        "footer footer footer";
 }
 
 nav {
@@ -15,7 +15,7 @@ nav {
     background-color: #dce0e8;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
     nav {
         min-height: 40px;
     }
